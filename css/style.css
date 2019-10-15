@@ -1,0 +1,59 @@
+.book {
+    margin-left: 35%;
+    margin-right: 35%;
+    font-size: 16px;
+}
+
+p {
+    text-align: justify;
+}
+
+.up {
+    font-weight: bold;
+}
+
+.main {
+    font-size: 1.2rem;
+}
+
+.pred {
+    font-size: .85rem;
+}
+
+.book5 {
+    line-height: 2;
+    font-size: 1.2rem;
+}
+
+span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.button-up, article:not(.art):not(.art4) {
+    margin-top: 10%;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 10px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.4s ease-in-out;
+  }
+
+a {
+    border-radius: 10px;
+    color: #40382D;
+    box-shadow: inset 0 -5px 0 #40382D;
+}
+
+a:hover {
+    box-shadow: inset 0 -60px 0 #40382D, 2px 2px 3px rgba(0,0,0,0.3);
+    color: #DECDA5;
+}
+
+
