@@ -126,13 +126,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-top: 114px;
+    margin-top: 70px;
 }
 
 .header-text-block {
     display: flex;
     flex-direction: column;
-    max-width: 450px;
+    max-width: 250px;
 }
 
 .header-text {
@@ -156,7 +156,7 @@ body {
 }
 
 .header-text p {
-    padding-top: 52px;
+    padding-top: 22px;
     font-size: 14px;
     font-weight: 600;
     word-spacing: 2px;
@@ -261,7 +261,7 @@ main {
 .service-block-bot {
     display: flex;
     justify-content: center;
-    padding-top: 125px;
+    padding-top: 75px;
 }
 
 .service {
