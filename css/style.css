@@ -126,13 +126,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-top: 214px;
+    margin-top: 114px;
 }
 
 .header-text-block {
     display: flex;
     flex-direction: column;
-    max-width: 650px;
+    max-width: 450px;
 }
 
 .header-text {
