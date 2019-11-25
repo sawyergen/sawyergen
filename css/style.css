@@ -132,7 +132,7 @@ body {
 .header-text-block {
     display: flex;
     flex-direction: column;
-    max-width: 250px;
+    max-width: 370px;
 }
 
 .header-text {
