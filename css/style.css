@@ -940,6 +940,9 @@ main .submit-mail:active {
 }
 
 @media screen and (max-width: 1200px) {
+    body {
+        overflow-x: visible;
+        }
 
     .main-res {
         max-width: 1140px;
