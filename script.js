@@ -1,273 +1,110 @@
-// старый код
-
-
-
-// const cards = document.querySelectorAll('.card');
-
-// let hasFlippedCard = false;
-// let lockBoard = false;
-// let firstCard, secondCard;
-
-// function flipCard() {
-//     if (lockBoard) return;
-//     if (this === firstCard) return;
-
-//     this.classList.add('flip');
-
-//     if (!hasFlippedCard) {
-//         hasFlippedCard = true;
-//         firstCard = this;
-//         return;
-//     }
-
-//     secondCard = this;
-//     lockBoard = true;
-
-//     checkForMatch();
-// }
-
-// function checkForMatch() {
-//     let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
-//     isMatch ? disableCards() : unflipCards();
-// }
-
-// function disableCards() {
-//     firstCard.removeEventListener('click', flipCard);
-//     secondCard.removeEventListener('click', flipCard);
-
-//     resetBoard();
-// }
-
-// function unflipCards() {
-//     setTimeout(() => {
-//         firstCard.classList.remove('flip');
-//         secondCard.classList.remove('flip');
-
-//         resetBoard();
-//     }, 1500);
-// }
-
-// function resetBoard() {
-//     [hasFlippedCard, lockBoard] = [false, false];
-//     [firstCard, secondCard] = [null, null];
-// }
-
-// (function shuffle() {
-//     cards.forEach(card => {
-//         let randomPos = Math.floor(Math.random() * 32);
-//         card.style.order = randomPos;
-//     });
-// })();
-
-// cards.forEach(card => card.addEventListener('click', flipCard));
-
-
-// новый код
-
-
-// function randomizeGame() {
-//     const memCard = document.createElement('div');
-//     document.body.prepend(memCard);
-//     memCard.setAttribute('class', 'memoryCardName');
-//     let counter = 0;
-//     for (let i = 0; i < 32; i++) {
-
-//         if (counter < 16) {
-//             nameCard = 'joker';
-//             imgCard = 'img/joker.png';
-//             counter++;
-//         } else {
-//             nameCard = 'batman';
-//             imgCard = 'img/batman.png';
-//         };
-
-//         const div = document.createElement('div');
-//         const img = document.createElement('img');
-//         const imgTwo = document.createElement('img');
-//         memCard.appendChild(div);
-//         div.setAttribute('class', 'card');
-//         div.setAttribute('name', nameCard);
-//         div.appendChild(img);
-//         img.setAttribute('class', 'front-card');
-//         img.setAttribute('src', imgCard);
-//         img.setAttribute('alt', nameCard);
-//         div.appendChild(imgTwo);
-//         imgTwo.setAttribute('class', 'back-card');
-//         imgTwo.setAttribute('src', 'img/back-card.png');
-//         imgTwo.setAttribute('alt', 'back');
-//     };
-// };
-
-// randomizeGame();
-
-
-// const cards = document.querySelectorAll('.card');
-// let hasFlippedCard = false;
-// let firstCard, secondCard;
-
-// function flipCard() {
-//     if (checkMatch) unflipCards();
-
-
-//     this.classList.toggle('flip');
-
-
-
-
-
-//     if (!hasFlippedCard) {
-//         hasFlippedCard = true;
-//         firstCard = this;
-//         return;
-//     };
-
-//     secondCard = this;
-//     hasFlippedCard = false;
-
-//     checkForMatch();
-// };
-
-
-// let checkMatch = 0; // под вопросом
-// let roundCounter = 0; // счетчик раундов
-
-// function checkForMatch() {
-//     checkMatch = 0;
-//     if (firstCard.getAttribute('name') === secondCard.getAttribute('name')) {
-//         disableCards();
-//         roundCounter++;
-//         // console.log(roundCounter);
-
-//         return checkMatch = 1; // под вопросом
-//     }
-
-//     unflipCards();
-// };
-
-// function disableCards() {
-//     firstCard.removeEventListener('click', flipCard);
-//     secondCard.removeEventListener('click', flipCard);
-
-//     setTimeout(() => {
-//         firstCard.style.transition = 'all ease .3s'
-//         secondCard.style.transition = 'all ease .3s'
-//         firstCard.style.background = '#fff';
-//         firstCard.style.boxShadow = 'none';
-//         firstCard.style.cursor = 'default';
-//         firstCard.classList.remove('flip');
-//         firstCard.childNodes[0].remove();
-//         firstCard.childNodes[0].remove();
-//         secondCard.style.background = '#fff';
-//         secondCard.style.boxShadow = 'none';
-//         secondCard.style.cursor = 'default';
-//         secondCard.classList.remove('flip');
-//         secondCard.childNodes[0].remove();
-//         secondCard.childNodes[0].remove();
-//     }, 1000);
-
-// };
-
-// function unflipCards() {
-//     setTimeout(() => {
-//         firstCard.classList.remove('flip');
-//         secondCard.classList.remove('flip');
-//     }, 1500);
-// };
-
-
-
-
-
-
-
-
-// (function shuffle() {
-//     cards.forEach(card => {
-//         let randomPos = Math.floor(Math.random() * 32);
-//         card.style.order = randomPos;
-//     });
-// })();
-
-// // cards.forEach(card => card.addEventListener('click', flipCard));
-
-// cards.forEach(function (card) {
-//     card.addEventListener('click', flipCard);
-//     // console.log(this)
-// });
-
-
-
-
-
-// новый переписанный код
-
-
-let firstCard, secondCard;
-let hasFlippedCard = false;
-let lockBoard = false;
-let unflip = false; // перевернуты ли карточки
-let counterRounds = 0; // проверка на кол-во раундов
+let firstCard, secondCard; // запоминание карт
+let hasFlippedCard = false; // перевернута ли первая карта
+let lockBoard = false; // блокировка остальных карт, пока активны! две другие карты
+let unflipCard = false; // переворот карт, если не совпали
+let counterRounds = 0; // счетчик раундов
 let endGame = 0; // проверка на конец игры
 const final = document.getElementById('final');
-const button = document.getElementById('button');
 const memCardTest = document.getElementsByClassName('memoryCardName');
 
-button.addEventListener('click', function () {
-    memCardTest[0].remove();
-    randomizeGame();
-});
+mainMenu(); // генерируется и появляется главное меню игры
 
+function mainMenu() { // создание главного меню при запуске игры
 
-function randomizeGame() {
+    const div = document.createElement('div');
+    const buttonGameOnTime = document.createElement('button');
+    const buttonSendTime = document.createElement('button');
+    const inputMinutes = document.createElement('input');
+    const inputSeconds = document.createElement('input');
+    const buttonTraining = document.createElement('button');
+
+    document.body.appendChild(div);
+    div.appendChild(buttonGameOnTime);
+    div.appendChild(buttonSendTime);
+    div.appendChild(inputMinutes);
+    div.appendChild(inputSeconds);
+    div.appendChild(buttonTraining);
+
+    div.id = 'mainGameWindow';
+    buttonGameOnTime.id = 'gameOnTime';
+    buttonSendTime.id = 'sendTime';
+    inputMinutes.id = 'minutes';
+    inputSeconds.id = 'seconds';
+    buttonTraining.id = 'training';
+
+    inputMinutes.placeholder = 'Минуты';
+    inputSeconds.placeholder = 'Секунды';
+
+    inputMinutes.title = 'Введите минуты';
+    inputSeconds.title = 'Введите секунды';
+    buttonGameOnTime.title = 'Начать игру на время (2:00)';
+    buttonSendTime.title = 'Играть на своё время (указать время ниже)';
+    buttonTraining.title = 'Тренировка без времени';
+
+    buttonGameOnTime.textContent = 'Игра на время!';
+    buttonSendTime.textContent = 'Игра на своё время!';
+    buttonTraining.textContent = 'Тренировка без времени!';
+
+    div.scrollIntoView({ block: "center", behavior: "smooth" });
+
+    buttonGameOnTime.addEventListener('click', function () { // кнопка игры на время (первая сверху)
+        mainGameWindow.remove();
+        buttonBackToMainMenu('create');
+        randomizeGame();
+        timer(2); // передается значение таймера
+    });
+
+    buttonSendTime.addEventListener('click', function () { // кнопка игры на своё время
+        sendTimer(1); // 1 - создавать попутно кнопку "Главное меню" (которая сверху), 0 - наоборот
+    });
+
+    buttonTraining.addEventListener('click', function () { // кнопка тренировки
+        buttonBackToMainMenu('create');
+        mainGameWindow.remove();
+        createTimer(1);
+        randomizeGame();
+    });
+};
+
+function randomizeGame() { // создание карт
 
     const memCard = document.createElement('div');
-    document.body.prepend(memCard);
+    document.body.appendChild(memCard);
     memCard.setAttribute('class', 'memoryCardName');
-    let counter = 0;
-    for (let i = 0; i < 32; i++) {
+    let cardArr = ['img/1.png', 'img/2.png', 'img/3.png', 'img/4.png', 'img/5.png', 'img/6.png', 'img/7.png', 'img/8.png', 'img/9.png', 'img/10.png', 'img/11.png', 'img/12.png', 'img/13.png', 'img/14.png', 'img/15.png', 'img/16.png'];
 
-        if (counter < 16) {
-            nameCard = 'joker';
-            imgCard = 'img/joker.png';
-            counter++;
-        } else {
-            nameCard = 'batman';
-            imgCard = 'img/batman.png';
+
+    function addCards() {
+        for (let i = 0; i < 16; i++) {
+
+            for (let j = 0; j < 2; j++) {
+                const div = document.createElement('div');
+                div.addEventListener('click', flipCard);
+                const img = document.createElement('img');
+                const imgTwo = document.createElement('img');
+                memCard.appendChild(div);
+                div.setAttribute('class', 'card');
+                div.setAttribute('name', i);
+                div.appendChild(img);
+                img.setAttribute('class', 'front-card');
+                img.setAttribute('src', cardArr[i]);
+                img.setAttribute('alt', i);
+                div.appendChild(imgTwo);
+                imgTwo.setAttribute('class', 'back-card');
+                imgTwo.setAttribute('src', 'img/back-card.png');
+                imgTwo.setAttribute('alt', 'back');
+
+            };
         };
-
-        const div = document.createElement('div');
-        const img = document.createElement('img');
-        const imgTwo = document.createElement('img');
-        memCard.appendChild(div);
-        div.setAttribute('class', 'card');
-        div.setAttribute('name', nameCard);
-        div.appendChild(img);
-        img.setAttribute('class', 'front-card');
-        img.setAttribute('src', imgCard);
-        img.setAttribute('alt', nameCard);
-        div.appendChild(imgTwo);
-        imgTwo.setAttribute('class', 'back-card');
-        imgTwo.setAttribute('src', 'img/back-card.png');
-        imgTwo.setAttribute('alt', 'back');
     };
+
+    addCards();
 
     randomCardAddListener();
 
-    // временно 
-    // final.setAttribute('class', 'finalWindow');
-    // button.setAttribute('class', 'active');
-    // final.childNodes[1].textContent = 'Ходов потребовалось, для завершения игры';
-    // final.childNodes[3].textContent = '23';
-    // button.style.display = 'block';
-    // final.childNodes[1].style.display = 'block';
-    // final.childNodes[3].style.display = 'block';
-
-
 };
 
-randomizeGame();
-
-function disableCards() {
+function disableCards() { // удаление карт, если они совпали
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
 
@@ -281,29 +118,10 @@ function disableCards() {
         firstCard.style.cursor = 'default';
         secondCard.style.cursor = 'default';
 
-        // firstCard.style.background = '#fff';
-        // firstCard.style.boxShadow = 'none';
-        // firstCard.style.cursor = 'default';
-        // firstCard.style.overflow = 'hidden';
-        // firstCard.childNodes[1].remove();
-        // secondCard.style.background = '#fff';
-        // secondCard.style.boxShadow = 'none';
-        // secondCard.style.cursor = 'default';
-        // secondCard.style.overflow = 'hidden';
-        // secondCard.childNodes[1].remove();
-
-        // if (endGame === 16) { // проверка на конец игры + вывод результата
-        //     final.childNodes[1].textContent = 'Ходов потребовалось, для завершения игры';
-        //     final.childNodes[3].textContent = counterRounds;
-        //     final.setAttribute('class', 'finalWindow');
-        //     button.setAttribute('class', 'active');
-        //     button.style.display = 'block';
-        //     final.childNodes[1].style.display = 'block';
-        //     final.childNodes[3].style.display = 'block';
-        // };
-
-
-        checkEndGame();
+        if (endGame === 16) {
+            checkEndGame();
+            buttonBackToMainMenu('delete');
+        }
 
         resetBoard();
 
@@ -313,35 +131,54 @@ function disableCards() {
 
 };
 
-function checkEndGame() {
-    if (endGame === 16) { // проверка на конец игры + вывод результата
-        final.childNodes[1].textContent = 'Ходов потребовалось, для завершения игры';
-        final.childNodes[3].textContent = counterRounds;
-        final.setAttribute('class', 'finalWindow');
-        button.setAttribute('class', 'active');
-        button.style.display = 'block';
-        final.childNodes[1].style.display = 'block';
-        final.childNodes[3].style.display = 'block';
-    };
-}
+function checkEndGame() { // проверка на конец игры + вывод результата (здесь же генерируется окно с результатами игры)
 
+    let pText; // финальный текст в зависимости от исхода игры
 
+    (endGame < 16) ? pText = 'Время вышло. Вы проиграли!' : pText = 'Поздравляем, все карты угаданы!';
 
-function flipCard() {
+    memCardTest[0].remove();
 
-    console.log('Зашел');
+    let div = document.createElement('div');
+    document.body.appendChild(div);
+    div.id = 'final';
 
-    if (unflip && (this !== firstCard && this !== secondCard)) {
+    let final = document.getElementById('final');
+    let pFirst = document.createElement('p');
+    let pSecond = document.createElement('p');
+    let button = document.createElement('button');
+
+    button.id = 'button';
+    button.textContent = 'Главное меню!';
+    final.appendChild(pFirst);
+    final.appendChild(pSecond);
+    final.appendChild(button);
+    final.childNodes[0].textContent = pText;
+    final.childNodes[1].textContent = `Раундов сыграно: ${counterRounds}`;
+    final.scrollIntoView({ block: "center", behavior: "smooth" });
+    final.setAttribute('class', 'finalWindow');
+    button.setAttribute('class', 'active');
+    final.scrollIntoView({ block: "center", behavior: "smooth" });
+
+    button.addEventListener('click', function () { // кнопка "Главное меню" (появляется в конце игры)
+
+        final.remove();
+        time.remove();
+        mainMenu();
+
+    });
+};
+
+function flipCard() { // выбирает карты для сравнения
+
+    if (unflipCard && (this !== firstCard && this !== secondCard)) { // переворачивает активные карты, если пользователь нажал на третью 
         firstCard.classList.remove('flip');
         secondCard.classList.remove('flip');
         resetBoard()
-        unflip = false;
+        unflipCard = false;
     };
     if (lockBoard) return;
     if (this === firstCard) return;
-
-    console.log('Прошел')
-
 
     this.classList.toggle('flip');
 
@@ -355,49 +192,183 @@ function flipCard() {
     lockBoard = true;
 
     checkForMatch();
+
 };
 
+function checkForMatch() { // сравнение карт
 
-function checkForMatch() {
     if (firstCard.getAttribute('name') === secondCard.getAttribute('name')) {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
         disableCards();
-        counterRounds++; // проверка на кол-во раундов
+        counterRounds++;
     } else {
         counterRounds++;
-        return unflip = true;
+        return unflipCard = true;
     };
 };
 
-
-function resetBoard() {
+function resetBoard() { // сброс переменных после раунда
     [hasFlippedCard, lockBoard] = [false, false];
     [firstCard, secondCard] = [null, null];
 };
 
-
-function randomCardAddListener() {
+function randomCardAddListener() { // рандомайзер карт
 
     const cards = document.querySelectorAll('.card');
+    let arrUsedNumber = [];
 
-    (function shuffle() {
-        cards.forEach(card => {
-            let randomPos = Math.floor(Math.random() * 32);
-            card.style.order = randomPos;
-        });
-    })();
-
-    cards.forEach(function (card) {
-        card.addEventListener('click', flipCard);
-    });
-
-    final.childNodes[1].style.display = 'none';
-    final.childNodes[3].style.display = 'none';
-    final.removeAttribute('class');
-    button.style.display = 'none';
-    button.removeAttribute('class');
+    for (let i = 0; arrUsedNumber.length !== 32;) {
+        let randomPos = Math.floor(Math.random() * 32);
+        if (arrUsedNumber.indexOf(randomPos) >= 0) {
+            continue;
+        } else {
+            arrUsedNumber.push(randomPos);
+            cards[i].style.order = randomPos;
+            i++;
+        };
+    };
 
     endGame = 0;
     counterRounds = 0;
+};
+
+function timer(minutes = 0, seconds = 0) { // динамически настраиваемый таймер, можно выставить любое время в пределах часа
+
+    createTimer(0); // создается div с таймером
+
+    const time = document.getElementById('time');
+
+    beautySeconds();
+
+    let checkFunc = setInterval(() => {
+
+        if (minutes == 0 && seconds == 0) { // когда время вышло
+            setInterval(() => { clearInterval(timer); });
+            setInterval(() => { clearInterval(checkFunc); });
+            checkEndGame();
+            buttonBackToMainMenu('delete');
+            return;
+        };
+
+        if (endGame === 16) { // пользователь завершил игру раньше времени
+
+            clearInterval(timer);
+            setInterval(() => { clearInterval(checkFunc); });
+            return;
+
+        };
+
+    }, 500);
+
+    let timer = setInterval(() => {
+
+        seconds--;
+
+        if (seconds === -1) {
+            minutes--;
+            seconds = 59;
+            time.textContent = `${minutes}:${seconds}`;
+            return;
+        };
+
+        beautySeconds();
+
+        if (minutes == 0 && seconds <= 10) { // когда остается 10 секунд, таймер мигает красным
+            time.classList.toggle('red');
+        };
+
+
+    }, 1000);
+
+    function beautySeconds() { // косметическая функция, добавляет секундам ноль если они меньше десяти (вместо 5:4 => 5:04)
+        if (seconds < 10) {
+            time.textContent = `${minutes}:0${seconds}`;
+        } else {
+            time.textContent = `${minutes}:${seconds}`;
+        };
+    };
+};
+
+function sendTimer(createButton) { // пользователь может сам установить для себя удобное время для тренировки (если не успевает выиграть за минуту, например)
+    let sec = document.getElementById('seconds');
+    let min = document.getElementById('minutes');
+    let regex = /\D/;
+
+    if (regex.test(sec.value) || regex.test(min.value)) { // проверки input value
+        alert('Вводить разрешено только цифры!');
+        return;
+    } else if (min.value > 59 || sec.value > 59) {
+        alert('Максимально возможное время для установки: 59:59');
+        return;
+    } else if (regex.test(min.value) || sec.value == 0 && min.value <= 0) {
+        alert('Проверьте правильность ввода минут и/или секунд!');
+        return;
+    };
+
+    if (min.value == '' || min.value.length > 2) {
+        min.value = 0;
+    };
+
+    if (sec.value == '' || sec.value.length > 2) {
+        sec.value = 0;
+    };
+
+    if (createButton) buttonBackToMainMenu('create');
+
+    mainGameWindow.remove();
+
+    randomizeGame();
+
+    timer(min.value, sec.value);
+
+};
+
+function createTimer(runDateNow) { // создание diva таймера (значение передается для создания пустого div, либо вывода даты в div, если выбрана тренировка)
+    const div = document.createElement('div');
+    document.body.prepend(div);
+    div.id = 'time';
+    div.textContent = '00:00:00';
+    div.style.fontSize = '20px';
+
+    if (!runDateNow) setInterval(() => { clearInterval(dateNow); });
+
+    let dateNow = setInterval(() => { // если выбрана тренировка, то выводится местное время вместо таймера
+        let t = new Date();
+        div.style.fontSize = '20px';
+        hours = (t.getHours());
+        minutes = (t.getMinutes());
+        seconds = (t.getSeconds());
+        (hours < 10) ? hours = `0${hours}` : hours;
+        (minutes < 10) ? minutes = `0${minutes}` : minutes;
+        (seconds < 10) ? seconds = `0${seconds}` : seconds;
+        div.textContent = `${hours}:${minutes}:${seconds}`;
+
+    }, 500);
+};
+
+function buttonBackToMainMenu(createOrDelete) { // кнопка "Главное меню", которая появляется при игре
+    const button = document.createElement('button');
+    if (createOrDelete === 'create') {
+        document.body.prepend(button);
+        button.id = 'backMainMenu';
+        button.textContent = 'Главное меню';
+        button.title = 'При выходе сбросится весь прогресс и время!'
+    };
+
+    if (createOrDelete === 'delete') {
+        const buttonDelete = document.getElementById('backMainMenu');
+        buttonDelete.remove();
+    };
+
+    button.addEventListener('click', function () {
+
+        const time = document.getElementById('time');
+
+        if (time) time.remove();
+        buttonBackToMainMenu('delete');
+        memCardTest[0].remove();
+        mainMenu();
+        endGame = 16;
+    });
 };

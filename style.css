@@ -7,18 +7,19 @@
 
 body {
     background: linear-gradient(45deg, #b36814, #6dd5fa, #afafaf);
-    background-size: 400% 400%;
+    background-size: 10000% 10000%;
     animation: gradient 30s ease infinite;
-    /* background-color: #1fddff; */ 
 }
 
 @keyframes gradient {
     0% {
         background-position: 0 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0 50%;
     }
@@ -26,7 +27,7 @@ body {
 
 .memoryCardName {
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 65px;
     max-width: 1400px;
     display: flex;
     flex-wrap: wrap;
@@ -39,18 +40,19 @@ body {
     width: 120px;
     height: 180px;
     position: relative;
-    margin: 20px;
+    margin: 10px 25px;
     transform: scale(1);
     transform-style: preserve-3d;
     border-radius: 15px;
-    box-shadow: 2px 2px 15px rgba(0,0,0,.4);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, .4);
     cursor: pointer;
     display: flex;
     user-select: none;
     transition: all ease .3s, transform .5s;
 }
 
-.front-card, .back-card {
+.front-card,
+.back-card {
     position: absolute;
     width: 120px;
     padding: 10px;
@@ -58,21 +60,38 @@ body {
     backface-visibility: hidden;
 }
 
-.card:active {
-    transform: scale(0.97);
-    transition: transform  .2s;
+.back-card {
+    bottom: -15%;
 }
 
 .card:hover {
-    transform: translate3d(0,0,30px);
     transition: all ease .3s;
-    box-shadow: 0 8px 15px rgba(255, 208, 0, 0.979);
+    transform: translate3d(0, 0, 30px);
+    animation: gradientCard 4s ease infinite;
+    background: linear-gradient(230deg, #6f65ff, #e2e2e2, #6f65ff);
+    background-size: 1000% 1000%;
+    box-shadow: 0 8px 15px rgb(105, 105, 105), inset 0 0 5px rgba(0, 0, 0, 0.068);
+}
+
+@keyframes gradientCard {
+    0% {
+        background-position: 96% 0%
+    }
+
+    50% {
+        background-position: 5% 100%
+    }
+
+    100% {
+        background-position: 96% 0%
+    }
 }
 
 .card.flip {
     transform: rotateY(180deg);
     transition: all ease .6s;
-    box-shadow: 2px 2px 15px rgba(0,0,0,.4);
+    background: rgb(162, 162, 223);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, .4);
 }
 
 .front-card {
@@ -80,83 +99,182 @@ body {
     width: 75%;
     left: calc(50% - (90px / 2));
     bottom: calc(40% - (168px / 2));
-} 
-
-img {
-    margin: 17% auto;
 }
 
-body {
-    position: relative;
+img {
+    margin: 50% auto;
 }
 
 .finalWindow {
-    position: absolute;
+    position: relative;
     width: 450px;
     height: 180px;
     background-color: rgb(210, 210, 226);
-    bottom: calc(50% - (180px / 2)) ;
+    top: 150px;
     left: calc(50% - (450px / 2));
     border-radius: 45px;
     overflow: hidden;
     background: linear-gradient(45deg, #68ffc5, #17c1ff, #8f83ff);
     background-size: 400% 400%;
     animation: gradient 5s ease infinite;
-    box-shadow: inset 0 0 15px rgba(0,0,0,.4), 0 0 10px rgb(170, 170, 170);
-    /* background-color: #1fddff; */ 
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, .4), 0 0 10px rgb(170, 170, 170);
 }
 
-#final > p {
-    position: absolute;
-    bottom: calc(50% + 40px) ;
-    left: calc(50% - (369px / 2));
+#final>p {
+    padding-top: 7%;
+    text-align: center;
     font-size: 18px;
     user-select: none;
 }
 
 #final p:nth-child(2) {
-    position: absolute;
-    bottom: calc(50% - 10px) ;
-    left: calc(50% - (32.34px / 2));
-    font-size: 30px;
+    padding-top: 2%;
+    font-size: 24px;
     user-select: none;
     z-index: 1;
 }
 
-#final p:nth-child(2)::before {
-    content: "";
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    bottom: calc(50% - 25px) ;
-    left: calc(50% - 25px);
-    border-radius: 50px;
-    background-color: rgb(20, 173, 27);
-    z-index: -1;
-}
-
 button.active {
     position: absolute;
-    bottom: calc(50% - 65px) ;
+    bottom: calc(50% - 65px);
     left: calc(50% - (172px / 2));
     font-size: 24px;
     padding: 5px;
     border: none;
     outline: none;
-    box-shadow: 0 0 5px rgba(0,0,0,.4);
-    transition: all ease .4s;
-    background: linear-gradient(13deg, rgba(16,0,255,0.16) 50%, rgba(0,0,0,0.12) 100%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    background: linear-gradient(13deg, rgba(16, 0, 255, 0.16) 50%, rgba(0, 0, 0, 0.12) 100%);
     overflow: hidden;
     cursor: pointer;
 }
 
 button:active {
-    transition: all ease .2s;
+    transition: all ease .3s;
     transform: scale(.97, .97);
 }
 
-button:hover {
-    background: linear-gradient(13deg, rgba(0,0,0,0.12) 0%, rgba(16,0,255,0.16) 50%);
+#time {
+    width: max-content;
+    margin: 0 auto;
+    margin-top: 15px;
+    font-size: 24px;
+    color: #000;
+    transition: all ease .5s;
+    position: relative;
+    user-select: none;
+    z-index: 1;
+}
+
+#time::before {
+    content: '';
+    position: absolute;
+    width: 90px;
+    height: 35px;
+    background: rgba(217, 255, 0, 0.658);
+    border-radius: 50px;
+    left: calc(50% - 90px / 2);
+    top: calc(50% - 35px / 2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.479);
+    transition: all ease .5s;
+    z-index: -2;
+}
+
+
+#time.red {
+    color: rgb(0, 0, 0);
+    transition: all ease .5s;
+}
+
+#time.red::before {
+    content: '';
+    position: absolute;
+    width: 90px;
+    height: 35px;
+    background: rgba(255, 0, 0, 0.76);
+    border-radius: 50px;
+    left: calc(50% - 90px / 2);
+    top: calc(50% - 35px / 2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.479);
+    transition: all ease .5s;
+    z-index: -1;
+}
+
+
+#mainGameWindow {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 300px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 55px 10px 55px 10px;
+    overflow: hidden;
+    background: linear-gradient(45deg, #68ffc5, #17c1ff, #8f83ff);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, .4), 0 0 10px rgb(170, 170, 170);
+}
+
+#mainGameWindow input {
+    width: 80px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#mainGameWindow button {
+    width: 182px;
+    margin: 15px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    transition: all ease .5s;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    cursor: pointer;
+}
+
+#mainGameWindow button:hover {
+    transition: all ease .5s;
+    background: linear-gradient(-10deg, #ffe60083, #28faa9);
+    box-shadow: 0 0 15px rgba(0, 0, 0, .4);
+}
+
+#mainGameWindow button:nth-child(1) {
+    height: 50px;
+    font-size: 18px;
+}
+
+#mainGameWindow button:nth-child(2) {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+#backMainMenu {
+    position: absolute;
+    width: 142px;
+    left: calc(50% - (142px / 2));
+    top: 55px;
+    font-size: 16px;
+    margin: 0 auto;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    transition: all ease .5s;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    cursor: pointer;
+}
+
+#backMainMenu:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.692);
 }
 
 @media screen and (max-width: 1200px) {
@@ -164,15 +282,30 @@ button:hover {
         width: 100px;
         height: 160px;
     }
-    .front-card, .back-card {
+
+    .front-card,
+    .back-card {
         width: 100px;
         bottom: 10%;
     }
+
     .front-card {
         width: 85%;
         left: calc(50% - (90px / 2));
         bottom: calc(40% - (168px / 2));
-    } 
+    }
+
+    .back-card {
+        bottom: -5%;
+    }
+
+    #backMainMenu {
+        width: 135px;
+        left: calc(50% - (135px / 2));
+        top: 55px;
+        padding: 5px;
+        font-size: 18px;
+    }
 }
 
 @media screen and (max-width: 1000px) {
@@ -180,17 +313,35 @@ button:hover {
         margin: 10px 10px;
         width: 100px;
         height: 160px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,.3);
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, .3);
     }
-    .front-card, .back-card {
+
+    .card:hover {
+        box-shadow: 0 5px 10px rgba(255, 208, 0, 0.979);
+        animation: none;
+        background: rgb(122, 122, 187);
+    }
+
+    .card.flip {
+        box-shadow: 2px 2px 15px rgba(0, 0, 0, .4);
+        background: rgb(162, 162, 223);
+    }
+
+    .front-card,
+    .back-card {
         width: 100px;
         bottom: 10%;
     }
+
     .front-card {
         width: 85%;
         left: calc(50% - (90px / 2));
         bottom: calc(40% - (168px / 2));
-    } 
+    }
+
+    .back-card {
+        bottom: -5%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -198,64 +349,102 @@ button:hover {
         margin: 10px 6px;
         width: 80px;
         height: 120px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,.3);
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, .3);
     }
-    .front-card, .back-card {
+
+    .card:hover {
+        box-shadow: 0 4px 6px rgba(255, 208, 0, 0.979);
+    }
+
+    .card.flip {
+        box-shadow: 2px 2px 15px rgba(0, 0, 0, .4);
+    }
+
+    .front-card,
+    .back-card {
         width: 80px;
         bottom: 6%;
     }
+
     .front-card {
         width: 85%;
         left: calc(50% - (68px / 2));
         bottom: calc(40% - (121px / 2));
-    } 
+    }
+
+    .back-card {
+        bottom: -5%;
+    }
+
+    .finalWindow {
+        width: 420px;
+        height: 180px;
+        bottom: calc(50% - (180px / 2));
+        left: calc(50% - (420px / 2));
+    }
 }
 
 @media screen and (max-width: 480px) {
     .memoryCardName {
-        margin-top: 15px;
+        margin-top: calc(150px / 2);
     }
+
     .card {
         margin: 6px 20px;
         width: 60px;
         height: 80px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,.3);
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, .3);
     }
-    .front-card, .back-card {
+
+    .card:hover {
+        box-shadow: 0 4px 5px rgba(255, 208, 0, 0.979);
+    }
+
+    .card.flip {
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);
+    }
+
+    .front-card,
+    .back-card {
         width: 60px;
         bottom: 2%;
     }
+
     .front-card {
         width: 85%;
         left: calc(50% - (51px / 2));
         bottom: calc(40% - (85px / 2));
-    } 
+    }
+
+    .back-card {
+        bottom: -22%;
+    }
+
     .finalWindow {
-        width: 320px;
-        height: 180px;
-        bottom: calc(60% - (180px / 2)) ;
-        left: calc(50% - (320px / 2));
+        width: 230px;
+        height: 210px;
+        bottom: calc(60% - (210px / 2));
+        left: calc(50% - (230px / 2));
     }
-    #final > p {
-        font-size: 14px;
-        bottom: calc(60% + 19px) ;
-        left: calc(50% - (287px / 2));
+
+    #final>p {
+        position: absolute;
+        width: 160px;
+        font-size: 16px;
+        bottom: calc(60% + 19px);
+        left: calc(50% - (160px / 2));
     }
-    
+
     #final p:nth-child(2) {
-        bottom: calc(65% - 32px) ;
-        left: calc(50% - (21px / 2));
-        font-size: 20px;
+        position: absolute;
+        width: 160px;
+        bottom: calc(55% - 32px);
+        left: calc(50% - (160px / 2));
+        font-size: 18px;
     }
-    
-    #final p:nth-child(2)::before {
-        width: 40px;
-        height: 40px;
-        bottom: calc(65% - 25px) ;
-        left: calc(50% - 20px);
-    }
+
     button.active {
-        bottom: calc(50% - 65px) ;
+        bottom: calc(45% - 65px);
         left: calc(50% - (150px / 2));
         font-size: 20px;
         padding: 5px;
@@ -264,99 +453,143 @@ button:hover {
 
 @media screen and (max-width: 320px) {
     .memoryCardName {
-        margin-top: 15px;
+        margin-top: calc(130px / 2);
     }
+
     .card {
         margin: 6px;
         width: 60px;
         height: 80px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,.3);
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, .3);
     }
-    .front-card, .back-card {
+
+    .front-card,
+    .back-card {
         width: 60px;
         bottom: 2%;
     }
+
     .front-card {
         width: 85%;
         left: calc(50% - (51px / 2));
         bottom: calc(40% - (85px / 2));
-    } 
-    .finalWindow {
-        width: 260px;
-        height: 200px;
-        bottom: calc(60% - (200px / 2)) ;
-        left: calc(50% - (260px / 2));
     }
-    #final > p {
+
+    .back-card {
+        bottom: -22%;
+    }
+
+    .finalWindow {
+        width: 220px;
+        height: 170px;
+        bottom: calc(60% - (170px / 2));
+        left: calc(50% - (220px / 2));
+    }
+
+    #final>p {
         width: 160px;
-        font-size: 14px;
-        bottom: calc(50% + 50px) ;
+        font-size: 16px;
+        bottom: calc(40% + 50px);
         left: calc(50% - (160px / 2));
         text-align: center;
     }
-    
+
     #final p:nth-child(2) {
-        bottom: calc(60% - (27px /2)) ;
+        bottom: calc(47% - (27px /2));
         left: calc(50% - (160px / 2));
-        font-size: 22px;
+        font-size: 18px;
     }
-    
+
     #final p:nth-child(2)::before {
         width: 40px;
         height: 40px;
-        bottom: calc(65% - 25px) ;
+        bottom: calc(60% - 25px);
         left: calc(50% - 20px);
     }
+
     button.active {
-        bottom: calc(30% - (37px /2)) ;
+        bottom: calc(25% - (37px /2));
         left: calc(50% - (150px / 2));
         font-size: 20px;
         padding: 5px;
+    }
+
+    #mainGameWindow {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+        height: 300px;
+        margin: 20px;
+        margin-top: calc(300px / 2);
     }
 }
 
 @media screen and (max-width: 240px) {
     .memoryCardName {
-        margin-top: 15px;
+        margin-top: calc(130px / 2);
     }
+
     .card {
         margin: 4px;
         width: 48px;
         height: 68px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,.3);
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, .3);
     }
-    .front-card, .back-card {
+
+    .front-card,
+    .back-card {
         width: 50px;
         bottom: calc(35% - 40px / 2);
         left: calc(40% - 40px / 2);
     }
+
     .front-card {
         width: 85%;
         left: calc(50% - (41px / 2));
         bottom: calc(40% - (64px / 2));
-    } 
+    }
+
+    .back-card {
+        bottom: -20%;
+    }
+
     .finalWindow {
-        width: 200px;
+        width: 140px;
         height: 180px;
-        bottom: calc(60% - (200px / 2)) ;
-        left: calc(50% - (200px / 2));
+        bottom: calc(60% - (180px / 2));
+        left: calc(50% - (140px / 2));
     }
-    #final > p {
-        bottom: calc(40% + 50px) ;
+
+    #final>p {
+        bottom: calc(40% + 50px);
         left: calc(50% - (160px / 2));
+        font-size: 12px;
     }
-    
+
     #final p:nth-child(2) {
-        bottom: calc(53% - (27px /2)) ;
+        bottom: calc(55% - (27px /2));
         left: calc(50% - (160px / 2));
-        font-size: 22px;
+        font-size: 14px;
     }
+
     button.active {
-        bottom: calc(26% - (37px /2)) ;
-        left: calc(50% - (150px / 2));
-        font-size: 20px;
+        bottom: calc(26% - (29px /2));
+        left: calc(50% - (106px / 2));
+        font-size: 14px;
         padding: 5px;
     }
+
+    #backMainMenu {
+        width: 120px;
+        left: calc(50% - (120px / 2));
+        top: 56px;
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    #mainGameWindow button{
+        width: max-content;
+        text-align: center;
+        font-size: 12px;
+    }
 }
-
-
