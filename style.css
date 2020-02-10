@@ -206,7 +206,7 @@ button:active {
     max-width: 300px;
     height: 300px;
     margin: 0 auto;
-    margin-top: 300px;
+    margin-top: 10%;
     align-items: center;
     justify-content: center;
     border-radius: 55px 10px 55px 10px;
